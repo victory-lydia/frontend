@@ -150,3 +150,25 @@
     color: white;
     letter-spacing: 1.15px;
 }
+
+.shopping{
+    font-weight: 400;
+    font-size: 30px;
+    text-align: center;
+}
+
+.start-shoping{
+    margin-top: 1rem;
+}
+
+.start-shoping a{
+    margin-left: 0.5rem;
+}
+
+.cart-empty{
+    font-size: 20px;
+    margin-top: 2rem;
+    color: rgb(255, 0, 0);
+    display: flex;
+    align-items: center;
+}
