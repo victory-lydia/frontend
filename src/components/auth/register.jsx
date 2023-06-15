@@ -1,9 +1,19 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../features/authSlice";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const auth = useSelector((state) => state.auth);
+
+  // console.log(auth);
+  useEffect(() => {
+    if (auth._id) {
+      navigate("/cart");
+    }
+  }, [auth._id, navigate]);
 
   const [user, setUser] = useState({
     name: "",
@@ -13,7 +23,6 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     dispatch(registerUser(user));
   };
 
@@ -34,7 +43,7 @@ const Register = () => {
               </label>
               <input
                 type="name"
-                onClick={(e) => setUser({ ...user, name: e.target.value })}
+                onInput={(e) => setUser({ ...user, name: e.target.value })}
                 className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
               />
             </div>
@@ -47,7 +56,7 @@ const Register = () => {
               </label>
               <input
                 type="email"
-                onClick={(e) => setUser({ ...user, email: e.target.value })}
+                onInput={(e) => setUser({ ...user, email: e.target.value })}
                 className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
               />
             </div>
@@ -60,24 +69,31 @@ const Register = () => {
               </label>
               <input
                 type="password"
-                onClick={(e) => setUser({ ...user, password: e.target.value })}
+                onInput={(e) => setUser({ ...user, password: e.target.value })}
                 className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
               />
             </div>
 
             <div className="mt-6">
               <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-700 rounded-md hover:bg-red-600 focus:outline-none focus:bg-purple-600">
-                Register
+                {auth.registerStatus === "pending" ? "Submitting" : "Register"}
               </button>
             </div>
+
+            {auth.registerStatus === "rejected" ? (
+              <p>{auth.registerError}</p>
+            ) : null}
           </form>
 
           <p className="mt-8 text-xs font-light text-center text-gray-700">
             {" "}
             Have an account?{" "}
-            <a href="#" className="font-medium text-purple-600 hover:underline">
+            <Link
+              to="/login"
+              className="font-medium text-purple-600 hover:underline"
+            >
               Login
-            </a>
+            </Link>
           </p>
         </div>
       </div>

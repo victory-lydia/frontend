@@ -60,3 +60,34 @@
 .not-found p{
   font-size: 20px;
 }
+
+.admin div {
+  color: white;
+  display: flex;
+  cursor: pointer;
+}
+
+/* &:last-child {
+  margin-left: 2rem;
+} */
+
+.auth{
+  color: white;
+  display: flex;
+  cursor: pointer;
+  margin-left: 2rem; 
+}
+
+&:last-child .auth a{
+  margin-left: 2rem;
+}
+
+/* Admin */
+
+.link-active{
+  color:#4b78e2
+}
+
+.link-inactive{
+  color: rgb(97, 97, 97);
+}

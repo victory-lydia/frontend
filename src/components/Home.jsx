@@ -7,9 +7,6 @@ import { addToCart } from "../features/cartSlice";
 
 const Home = () => {
   const cart = useSelector((state) => state.cart);
-  const auth = useSelector((state) => state.auth);
-  console.log(auth);
-  // console.log(cart);
 
   const { data, error, isLoading } = useGetAllProductsQuery();
   const dispatch = useDispatch();

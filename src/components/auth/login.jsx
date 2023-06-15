@@ -1,6 +1,35 @@
-import React from "react";
+// import React from "react";
+// import { Link } from "react-router-dom";
 
-export default function Login() {
+// export default function Login() {
+
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../../features/authSlice";
+import { Link, useNavigate } from "react-router-dom";
+
+const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const auth = useSelector((state) => state.auth);
+
+  // console.log(auth);
+  useEffect(() => {
+    if (auth._id) {
+      navigate("/cart");
+    }
+  }, [auth._id, navigate]);
+
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(loginUser(user));
+  };
+
   return (
     <>
       <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
@@ -8,7 +37,7 @@ export default function Login() {
           <h1 className="text-3xl font-semibold text-center text-blue-700 uppercase">
             Sign in
           </h1>
-          <form className="mt-6">
+          <form className="mt-6" onSubmit={handleSubmit}>
             <div className="mb-2">
               <label
                 htmlFor="email"
@@ -18,6 +47,7 @@ export default function Login() {
               </label>
               <input
                 type="email"
+                onInput={(e) => setUser({ ...user, email: e.target.value })}
                 className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
               />
             </div>
@@ -30,6 +60,7 @@ export default function Login() {
               </label>
               <input
                 type="password"
+                onInput={(e) => setUser({ ...user, password: e.target.value })}
                 className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
               />
             </div>
@@ -38,9 +69,11 @@ export default function Login() {
             </a>
             <div className="mt-6">
               <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-700 rounded-md hover:bg-red-600 focus:outline-none focus:bg-purple-600">
-                Login
+                {auth.loginStatus === "pending" ? "Submitting" : "Login"}
               </button>
             </div>
+
+            {auth.loginStatus === "rejected" ? <p>{auth.loginError}</p> : null}
           </form>
           <div className="relative flex items-center justify-center w-full mt-6 border border-t">
             <div className="absolute px-5 bg-white">Or</div>
@@ -81,12 +114,17 @@ export default function Login() {
           <p className="mt-8 text-xs font-light text-center text-gray-700">
             {" "}
             Don't have an account?{" "}
-            <a href="#" className="font-medium text-purple-600 hover:underline">
+            <Link
+              to="/"
+              className="font-medium text-purple-600 hover:underline"
+            >
               Register
-            </a>
+            </Link>
           </p>
         </div>
       </div>
     </>
   );
-}
+};
+
+export default Login;
