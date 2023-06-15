@@ -1,10 +1,11 @@
 import axios from "axios";
+import env from "react-dotenv";
 
 export const handlePayements = (amount) => {
   const apikey = process.env.REACT_APP_API_USERNAME;
   const apipassword = process.env.REACT_APP_API_PASSWORD;
-  const authorization = btoa(`${apikey}: ${apipassword}`);
-  const base_url = "https://gateway.payunit.net";
+  const authorization = btoa(`${apikey}:${apipassword}`);
+  const BASE_URL = "https://gateway.payunit.net";
 
   const header = {
     "x-api-key": process.env.REACT_APP_PAYUNIT_SANDBOX_KEY,
@@ -12,7 +13,7 @@ export const handlePayements = (amount) => {
     "Content-Type": "application/json",
     Authorization: `Basic ${authorization}`,
   };
-
+  console.log(authorization);
   const body = {
     total_amount: amount,
     currency: "XAF",
@@ -23,7 +24,7 @@ export const handlePayements = (amount) => {
   };
 
   axios({
-    url: `${base_url}/api/gateway/initialize`,
+    url: `${BASE_URL}/api/gateway/initialize`,
     headers: header,
     data: body,
     method: "POST",

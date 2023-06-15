@@ -1,10 +1,18 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import React from "react";
 import "../../styles/createProduct.css";
 import styled from "styled-components";
+import { PrimaryButton } from "./CommonStyled";
+import { productsCreate } from "../../features/productsSlice";
 
 const CreateProduct = () => {
+  const dispatch = useDispatch();
+
   const [productImg, setProductImg] = useState("");
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [desc, setDesc] = useState("");
 
   console.log(productImg);
 
@@ -27,9 +35,22 @@ const CreateProduct = () => {
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    dispatch(
+      productsCreate({
+        name,
+        price,
+        desc,
+        image: productImg,
+      })
+    );
+  };
+
   return (
     <StyledCreateProduct>
-      <StyledForm>
+      <StyledForm onSubmit={handleSubmit}>
         <h3>Create a product</h3>
         <input
           type="file"
@@ -37,7 +58,27 @@ const CreateProduct = () => {
           onChange={handleProductImageUpload}
           required
         />
-        <input type="text" required />
+        {/* <select onClick={(e) => setName(e.target.value)}></select> */}
+        <input
+          type="text"
+          required
+          placeholder="Name"
+          onClick={(e) => setName(e.target.value)}
+        />
+        <input
+          type="text"
+          required
+          placeholder="Price"
+          onClick={(e) => setPrice(e.target.value)}
+        />
+        <input
+          type="text"
+          required
+          placeholder="Description"
+          onClick={(e) => setDesc(e.target.value)}
+        />
+
+        <PrimaryButton type="submit">Submit</PrimaryButton>
       </StyledForm>
       <ImagePreview>
         {productImg ? (
