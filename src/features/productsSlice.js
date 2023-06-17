@@ -25,7 +25,7 @@ export const productsCreate = createAsyncThunk(
   "products/productsCreate",
   async (values) => {
     try {
-      const response = await axios.post(`${url}/products`, values);
+      const response = await axios.post(`${url}/product`, values);
       return response?.data;
     } catch (error) {
       console.log(error);

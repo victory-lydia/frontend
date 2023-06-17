@@ -18,8 +18,8 @@ export const handlePayements = (amount) => {
     total_amount: amount,
     currency: "XAF",
     transaction_id: "pu-" + Date.now(),
-    return_url: `https://1741-154-72-169-44.ngrok-free.app/checkout`,
-    notify_url: `https://1741-154-72-169-44.ngrok-free.app/cart`,
+    return_url: ` https://429d-129-0-99-63.ngrok-free.app/checkout`,
+    notify_url: ` https://429d-129-0-99-63.ngrok-free.app/cart`,
     payment_country: "CM",
   };
 
