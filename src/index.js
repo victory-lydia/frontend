@@ -13,7 +13,7 @@ import authReducer, { loadUser } from "./features/authSlice";
 
 const store = configureStore({
   reducer: {
-    product: productsReducer,
+    products: productsReducer,
     cart: cartReducer,
     auth: authReducer,
     [productApi.reducerPath]: productApi.reducer,

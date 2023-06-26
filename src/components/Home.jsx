@@ -6,9 +6,13 @@ import "../styles/home.css";
 import { addToCart } from "../features/cartSlice";
 
 const Home = () => {
-  const cart = useSelector((state) => state.cart);
+  // const cart = useSelector((state) => state.cart);
 
-  const { data, error, isLoading } = useGetAllProductsQuery();
+  const { items, status } = useSelector((state) => state.products);
+  // console.log({ selector });
+
+  // const { data, error, isLoading } = useGetAllProductsQuery();
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -17,18 +21,24 @@ const Home = () => {
     navigate("/cart");
   };
 
+  if (status === "pending") {
+    return "loading...";
+  }
+
   return (
     <div className="home-container">
-      {isLoading ? (
+      {/* {isLoading ? (
         <p>Loading...</p>
       ) : error ? (
         <p>An error occured..</p>
-      ) : (
-        <>
-          <h2>New Arrivals</h2>
-          <div className="products">
-            {data?.map((product, index) => (
-              <div key={index} className="product">
+      ) : ( */}
+      <>
+        <h2>New Arrivals</h2>
+        <div className="products">
+          {items &&
+            // items?.map((product, index) => (
+            items?.map((product) => (
+              <div key={product._id} className="product">
                 <h3>{product.name}</h3>
                 <img src={product.image} alt={product.name} />
                 <div className="details">
@@ -40,9 +50,8 @@ const Home = () => {
                 </button>
               </div>
             ))}
-          </div>
-        </>
-      )}
+        </div>
+      </>
     </div>
   );
 };

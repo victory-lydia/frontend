@@ -179,7 +179,7 @@ const Cart = () => {
               {cart?.cartItems?.map((cartItem) => {
                 return (
                   <div className="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
-                    <div className="flex w-2/5" key={cartItem.id}>
+                    <div className="flex w-2/5" key={cartItem._id}>
                       <div className="w-20">
                         <img
                           className="h-24"

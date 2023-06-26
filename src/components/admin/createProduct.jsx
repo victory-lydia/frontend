@@ -11,10 +11,8 @@ const CreateProduct = () => {
 
   const [productImg, setProductImg] = useState("");
   const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState(Number);
   const [desc, setDesc] = useState("");
-
-  console.log(productImg);
 
   const handleProductImageUpload = (e) => {
     const file = e.target.files[0];
@@ -46,6 +44,8 @@ const CreateProduct = () => {
         image: productImg,
       })
     );
+
+    console.log(name, "image..");
   };
 
   return (
@@ -63,19 +63,19 @@ const CreateProduct = () => {
           type="text"
           required
           placeholder="Name"
-          onClick={(e) => setName(e.target.value)}
+          onChange={(e) => setName(e.target.value)}
         />
         <input
           type="text"
           required
           placeholder="Price"
-          onClick={(e) => setPrice(e.target.value)}
+          onChange={(e) => setPrice(e.target.value)}
         />
         <input
           type="text"
           required
           placeholder="Description"
-          onClick={(e) => setDesc(e.target.value)}
+          onChange={(e) => setDesc(e.target.value)}
         />
 
         <PrimaryButton type="submit">Submit</PrimaryButton>
