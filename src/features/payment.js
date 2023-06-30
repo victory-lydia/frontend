@@ -18,8 +18,8 @@ export const handlePayements = (amount) => {
     total_amount: amount,
     currency: "XAF",
     transaction_id: "pu-" + Date.now(),
-    return_url: ` https://429d-129-0-99-63.ngrok-free.app/checkout`,
-    notify_url: ` https://429d-129-0-99-63.ngrok-free.app/cart`,
+    return_url: ` https://f880-154-72-170-43.ngrok-free.app/checkout`,
+    notify_url: ` https://f880-154-72-170-43.ngrok-free.app/cart`,
     payment_country: "CM",
   };
 
@@ -37,7 +37,7 @@ export const handlePayements = (amount) => {
 
       if (data.statusCode === 200) {
         window.location.href = data.data.transaction_url;
-      }
+      } 
       //   if (data.status === "FAILED") {
       //   }
     })

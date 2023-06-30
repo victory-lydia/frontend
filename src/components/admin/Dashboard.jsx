@@ -1,7 +1,12 @@
 import { NavLink, Outlet } from "react-router-dom";
 import "../../styles/dashboard.css";
+import { useSelector } from "react-redux";
 
 const Dashboard = () => {
+  const auth = useSelector((state) => state.auth);
+
+  if (!auth.isAdmin) return <p>Access denied.</p>;
+
   return (
     <>
       <div className="stlyedDashboard">
